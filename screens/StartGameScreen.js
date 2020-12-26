@@ -18,25 +18,49 @@
 //---------------------------------------------------------------------------------------------
 
 import React,{useState} from "react"
-import {View, Text,StyleSheet,Button} from "react-native"
+import {View, Text,StyleSheet,Button,TouchableWithoutFeedback,Keyboard,Alert} from "react-native"
 import Card from "../components/Card"
 import colors from "../Settings/colors"
 import Input from "../components/Input"
 
 const StartGameScreen = (props)=>{
     const [enteredValue,setEnteredValue] = useState('')
+    const [confirmed,setConfirmed] = useState(false)
+    const [selectedNumber,setSelectedNumber] = useState('')
+    const handleEnteredValue=(inputText)=>{
+        setEnteredValue(inputText.replace(/[^0-9]/g,''))
+    }
+    const handleReset = ()=>{
+        setEnteredValue('')
+        setConfirmed(false)
+    }
+    const handleConfirmed = ()=>{
+        const chosenValue = parseInt(enteredValue)
+        if(isNaN(chosenValue) || chosenValue<=0 || chosenValue>99){
+            Alert.alert('Invalid Number!','The number should be between 1 and 99',[{text:'okay', style:'destructive',onPress:handleReset}])
+            return
+        }
+        setConfirmed(true)
+        setSelectedNumber(chosenValue)
+        setEnteredValue('')
+    }
     return (
+        <TouchableWithoutFeedback onPress={()=>{
+            Keyboard.dismiss()
+        }}>
         <View style={styles.screen}>
         <Text style={styles.title}>Start A New Game!</Text>
         <Card style={styles.inputContainer}>
             <Text >Select A Number</Text>
-            <Input style={styles.input} blurOnSubmit autocapitalize="none" maxLength={2} keyboardType="numeric"/>
+            <Input style={styles.input} blurOnSubmit autocapitalize="none" maxLength={2} keyboardType="numeric" value={enteredValue} onChangeText={handleEnteredValue}/>
             <View style={styles.buttonContainer}>
-                <View style={styles.button}><Button title="Reset" color={colors.primary} /></View>
-                <View style={styles.button}><Button title="confirm"color={colors.primary} /></View>
+                <View style={styles.button}><Button title="Reset" color={colors.primary} onPress={handleReset}/></View>
+                <View style={styles.button}><Button title="confirm"color={colors.primary} onPress={handleConfirmed}/></View>
             </View>
         </Card>
+        {confirmed && <Text>chosen number is {selectedNumber}</Text>}
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
