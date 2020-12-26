@@ -22,6 +22,7 @@ import {View, Text,StyleSheet,Button,TouchableWithoutFeedback,Keyboard,Alert} fr
 import Card from "../components/Card"
 import colors from "../Settings/colors"
 import Input from "../components/Input"
+import SelectedNumber from "../components/SelectedNumber"
 
 const StartGameScreen = (props)=>{
     const [enteredValue,setEnteredValue] = useState('')
@@ -43,6 +44,7 @@ const StartGameScreen = (props)=>{
         setConfirmed(true)
         setSelectedNumber(chosenValue)
         setEnteredValue('')
+        Keyboard.dismiss()
     }
     return (
         <TouchableWithoutFeedback onPress={()=>{
@@ -58,13 +60,19 @@ const StartGameScreen = (props)=>{
                 <View style={styles.button}><Button title="confirm"color={colors.primary} onPress={handleConfirmed}/></View>
             </View>
         </Card>
-        {confirmed && <Text>chosen number is {selectedNumber}</Text>}
+        {confirmed && <Card style={styles.summaryContainer}>
+        <Text>You Selected</Text>  
+        <SelectedNumber>{selectedNumber}</SelectedNumber>  
+        <Button title="START GAME"/>    
+        </Card>}
         </View>
         </TouchableWithoutFeedback>
     )
 }
 
 const styles = StyleSheet.create({
+
+
     screen:{
         flex:1,
         padding:10,
@@ -94,6 +102,10 @@ const styles = StyleSheet.create({
     input:{
         width:50,
         textAlign:"center"
+    },
+    summaryContainer:{
+        marginTop:20,
+        alignItems:"center",
     }
 })
 
