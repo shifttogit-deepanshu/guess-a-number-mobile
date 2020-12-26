@@ -63,7 +63,7 @@ const StartGameScreen = (props)=>{
         {confirmed && <Card style={styles.summaryContainer}>
         <Text>You Selected</Text>  
         <SelectedNumber>{selectedNumber}</SelectedNumber>  
-        <Button title="START GAME"/>    
+        <Button title="START GAME" onPress={()=>props.handleSelectedNumber(selectedNumber)}/>    
         </Card>}
         </View>
         </TouchableWithoutFeedback>
