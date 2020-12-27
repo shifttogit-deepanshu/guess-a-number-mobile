@@ -1,13 +1,32 @@
 import React,{useState} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet,View } from 'react-native'
+import * as Font from 'expo-font'
+import AppLoading from "expo-app-loading"
+
 import Header from "./components/Header"
 import StartGameScreen from "./screens/StartGameScreen"
 import GameScreen from "./screens/GameScreen"
 import GameOverScreen from "./screens/GameOverScreen"
 
+const fetchFonts = ()=>{
+  return Font.loadAsync({
+    openSans: require('./assets/Fonts/OpenSans-Regular.ttf'),
+    openSansBold: require('./assets/Fonts/OpenSans-Bold.ttf')
+  })
+}
+
 export default function App() {
   const [selectedNumber,setSelectedNumber] = useState()
   const [gameOverRound,setGameOverRound] = useState(0)
+  const [dataLoaded,setDataLoaded] = useState(false)
+  // let [fontsLoaded] = useFonts({
+  //   openSans: require('./assets/Fonts/OpenSans-Regular.ttf'),
+  //   openSansBold: require('./assets/Fonts/OpenSans-Bold.ttf')
+  // })
+
+  if(!dataLoaded){
+    <AppLoading startAsync={fetchFonts} onFinish={()=>setDataLoaded(true)}/>
+  }
 
   const handleStartGame = (number)=>{
     setSelectedNumber(number)

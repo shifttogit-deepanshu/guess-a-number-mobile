@@ -3,7 +3,7 @@ import {View, Text,StyleSheet, Button} from "react-native"
 
 const GameOverScreen = (props)=>{
     return (
-        <View>
+        <View style={styles.screen}>
             <Text>Game Over!</Text>
             <Text>Number of rounds: {props.rounds}</Text>
             <Text>The Number was: {props.number}</Text>
@@ -13,7 +13,12 @@ const GameOverScreen = (props)=>{
 }
 
 const styles = StyleSheet.create({
-    
+    screen:{
+        flex:1,
+        alignItems:"center",
+        justifyContent:"center"
+    }
+
 })
 
 export default GameOverScreen
