@@ -10,8 +10,8 @@ import GameOverScreen from "./screens/GameOverScreen"
 
 const fetchFonts = ()=>{
   return Font.loadAsync({
-    openSans: require('./assets/Fonts/OpenSans-Regular.ttf'),
-    openSansBold: require('./assets/Fonts/OpenSans-Bold.ttf')
+    'openSans': require('./assets/Fonts/OpenSans-Regular.ttf'),
+    'openSansBold': require('./assets/Fonts/OpenSans-Bold.ttf')
   })
 }
 
@@ -25,7 +25,7 @@ export default function App() {
   // })
 
   if(!dataLoaded){
-    <AppLoading startAsync={fetchFonts} onFinish={()=>setDataLoaded(true)}/>
+    <AppLoading startAsync={()=>{fetchFonts()}} onFinish={()=>setDataLoaded(true)}/>
   }
 
   const handleStartGame = (number)=>{
