@@ -8,6 +8,7 @@ import StartGameScreen from "./screens/StartGameScreen"
 import GameScreen from "./screens/GameScreen"
 import GameOverScreen from "./screens/GameOverScreen"
 
+
 const fetchFonts = ()=>{
   return Font.loadAsync({
     'openSans': require('./assets/Fonts/OpenSans-Regular.ttf'),
@@ -41,6 +42,7 @@ export default function App() {
   }
 
   let content = <StartGameScreen handleSelectedNumber={handleStartGame}/>
+  content = <GameOverScreen rounds={1} number={1} newGameHandler={newGameHandler}/>
   if(selectedNumber && gameOverRound<=0){
     content = <GameScreen userChoice={selectedNumber} handleGameOver={handleGameOver}/>
   }
