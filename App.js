@@ -25,7 +25,7 @@ export default function App() {
   // })
 
   if(!dataLoaded){
-    <AppLoading startAsync={()=>{fetchFonts()}} onFinish={()=>setDataLoaded(true)}/>
+    return <AppLoading startAsync={fetchFonts} onFinish={()=>setDataLoaded(true)} onError={(err)=>console.log(err)}/>
   }
 
   const handleStartGame = (number)=>{
