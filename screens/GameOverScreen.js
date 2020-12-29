@@ -10,7 +10,7 @@ const GameOverScreen = (props)=>{
             <Text style={DefaultStyles.title}>Game Over!</Text>
             <View style={styles.imageContainer}><Image source={require('../assets/success.png')} style={styles.image} fadeDuration={1000}/></View> 
             <Text style={styles.endText}>      
-            <Text>Your phone needed <Text style={styles.statText}>{props.rounds}</Text> rounds</Text>
+            <Text>Your phone needed rounds: <Text style={styles.statText}> {props.rounds} </Text> To figure out </Text>
             <Text>The Number was: <Text style={styles.statText}>{props.number}</Text></Text>
             </Text>  
             <Button title="NEW GAME" onPress={props.newGameHandler}/>

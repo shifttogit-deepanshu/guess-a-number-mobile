@@ -42,7 +42,6 @@ export default function App() {
   }
 
   let content = <StartGameScreen handleSelectedNumber={handleStartGame}/>
-  content = <GameOverScreen rounds={1} number={1} newGameHandler={newGameHandler}/>
   if(selectedNumber && gameOverRound<=0){
     content = <GameScreen userChoice={selectedNumber} handleGameOver={handleGameOver}/>
   }
