@@ -1,11 +1,12 @@
 import React from "react"
-import {View, Text,StyleSheet, Button,Image} from "react-native"
+import {View, Text,StyleSheet, Button,Image,ScrollView,Dimensions} from "react-native"
 import DefaultStyles from "../Settings/defaultStyles"
 import colors from "../Settings/colors"
 
 
 const GameOverScreen = (props)=>{
     return (
+        <ScrollView>
         <View style={styles.screen}>
             <Text style={DefaultStyles.title}>Game Over!</Text>
             <View style={styles.imageContainer}><Image source={require('../assets/success.png')} style={styles.image} fadeDuration={1000}/></View> 
@@ -15,6 +16,7 @@ const GameOverScreen = (props)=>{
             </Text>  
             <Button title="NEW GAME" onPress={props.newGameHandler}/>
         </View>
+        </ScrollView>
     )
 }
 
@@ -30,12 +32,12 @@ const styles = StyleSheet.create({
 
     },
     imageContainer:{
-        width:300,
-        height:300,
+        width:Dimensions.get('window').width * 0.7,
+        height:Dimensions.get('window').width * 0.7,
         borderWidth:0,
-        borderRadius:150,
+        borderRadius:Dimensions.get('window').width * 0.35,
         overflow:"hidden",
-        marginVertical:20,
+        marginVertical:Dimensions.get('window').width /20,
         shadowColor:"black",
         shadowOffset:{width:0,height:2},
         shadowOpacity:0.7,
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     },
     endText:{
         fontSize:20,
-        margin:50,
+        margin:Dimensions.get('window').width /20,
         textAlign:"center"
     }
 
