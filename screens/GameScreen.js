@@ -1,5 +1,5 @@
 import React,{useState,useRef,useEffect} from "react"
-import {View,Text,StyleSheet,Button,Alert} from "react-native"
+import {View,Text,StyleSheet,Button,Alert, Dimensions} from "react-native"
 import Card from "../components/Card"
 import SelectedNumber from "../components/SelectedNumber"
 import colors from "../Settings/colors"
@@ -29,13 +29,15 @@ const GameScreen = (props)=>{
     const currentLow = useRef(1)
     const currentHigh = useRef(100)
     const {handleGameOver,userChoice} = props
-
+    
     useEffect(()=>{
         if(guessedNumber===userChoice){
             setGameOver(round)
             handleGameOver(gameOver)
         }
     })
+
+
     
     const handleNextGuess = direction=>{
         if((direction=="lower" && guessedNumber<props.userChoice) || (direction=="greater" && guessedNumber>props.userChoice)){

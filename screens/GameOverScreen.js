@@ -1,10 +1,24 @@
-import React from "react"
+import React,{useState,useEffect} from "react"
 import {View, Text,StyleSheet, Button,Image,ScrollView,Dimensions} from "react-native"
 import DefaultStyles from "../Settings/defaultStyles"
 import colors from "../Settings/colors"
 
 
 const GameOverScreen = (props)=>{
+    const [layout,setLayout] = useState(Dimensions.get('window').width > Dimensions.get('window').height? 'Landscape':'portrait')
+
+    useEffect(()=>{
+        const updateLayout = ()=>{
+            setLayout(Dimensions.get('window').width > Dimensions.get('window').height? 'Landscape':'portrait')
+        }
+    
+        Dimensions.addEventListener('change',updateLayout)
+
+        return ()=>{
+            Dimensions.removeEventListener('change',updateLayout)
+        }
+    })
+
     return (
         <ScrollView>
         <View style={styles.screen}>
@@ -14,7 +28,7 @@ const GameOverScreen = (props)=>{
             <Text>Your phone needed rounds: <Text style={styles.statText}> {props.rounds} </Text> To figure out </Text>
             <Text>The Number was: <Text style={styles.statText}>{props.number}</Text></Text>
             </Text>  
-            <Button title="NEW GAME" onPress={props.newGameHandler}/>
+            <View style={{marginVertical:layout=='portrait'?0:20}}><Button title="NEW GAME" onPress={props.newGameHandler}/></View>
         </View>
         </ScrollView>
     )
@@ -53,7 +67,7 @@ const styles = StyleSheet.create({
         fontSize:20,
         margin:Dimensions.get('window').width /20,
         textAlign:"center"
-    }
+    },
 
 })
 
