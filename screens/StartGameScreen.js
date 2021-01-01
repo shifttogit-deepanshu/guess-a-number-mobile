@@ -17,8 +17,8 @@
 
 //---------------------------------------------------------------------------------------------
 
-import React,{useState} from "react"
-import {View, Text,StyleSheet,Button,TouchableWithoutFeedback,Keyboard,Alert,Dimensions} from "react-native"
+import React,{useState,useEffect} from "react"
+import {View, Text,StyleSheet,Button,TouchableWithoutFeedback,Keyboard,Alert,Dimensions,ScrollView} from "react-native"
 import Card from "../components/Card"
 import colors from "../Settings/colors"
 import Input from "../components/Input"
@@ -31,6 +31,20 @@ const StartGameScreen = (props)=>{
     const handleEnteredValue=(inputText)=>{
         setEnteredValue(inputText.replace(/[^0-9]/g,''))
     }
+    const [buttonWidth,setButtonWidth] = useState(Dimensions.get('window').width/4)
+    
+
+    useEffect(()=>{
+        Dimensions.addEventListener('change',updateLayout)
+
+    const updateLayout = ()=>{
+        setButtonWidth(Dimensions.get('window').width/4)
+    }
+
+    return ()=> {
+        Dimensions.removeEventListener('change',updateLayout)
+    }
+    })
     const handleReset = ()=>{
         setEnteredValue('')
         setConfirmed(false)
@@ -47,6 +61,7 @@ const StartGameScreen = (props)=>{
         Keyboard.dismiss()
     }
     return (
+        <ScrollView>
         <TouchableWithoutFeedback onPress={()=>{
             Keyboard.dismiss()
         }}>
@@ -56,8 +71,8 @@ const StartGameScreen = (props)=>{
             <Text >Select A Number</Text>
             <Input style={styles.input} blurOnSubmit autocapitalize="none" maxLength={2} keyboardType="numeric" value={enteredValue} onChangeText={handleEnteredValue}/>
             <View style={styles.buttonContainer}>
-                <View style={styles.button}><Button title="Reset" color={colors.primary} onPress={handleReset}/></View>
-                <View style={styles.button}><Button title="confirm"color={colors.primary} onPress={handleConfirmed}/></View>
+                <View style={{width:buttonWidth}}><Button title="Reset" color={colors.primary} onPress={handleReset}/></View>
+                <View style={{width:buttonWidth}}><Button title="confirm"color={colors.primary} onPress={handleConfirmed}/></View>
             </View>
         </Card>
         {confirmed && <Card style={styles.summaryContainer}>
@@ -67,6 +82,7 @@ const StartGameScreen = (props)=>{
         </Card>}
         </View>
         </TouchableWithoutFeedback>
+        </ScrollView>
     )
 }
 
@@ -98,9 +114,9 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         paddingHorizontal:15
     },
-    button:{
-        width:Dimensions.get('window').width/4,
-    },
+    // button:{
+    //     width:Dimensions.get('window').width/4,
+    // },
     input:{
         width:50,
         textAlign:"center"
